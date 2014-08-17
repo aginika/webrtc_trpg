@@ -1,5 +1,24 @@
 <!DOCTYPE html>
 <% include header %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <div align="center">
+    <div class="jumbotron login_panel">
+      <h1>Hello, aginika!</h1>
+      <p>Welcome to TRPG with webRTC</p>
+      <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xs-12 col-md-8">
+                  <input type="text" class="form-control input-lg" placeholder="Room Name">
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <button type="submit" class="btn btn btn-primary btn-lg"><span style="font-size: 25px">Enter Room</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </form>
+      <p><a class="btn btn-success btn-lg btn-block" role="button"><span style="font-size: 40px">Create New Room</span></a></p>
+    </div>
+  </div>
 <% include footer %>
