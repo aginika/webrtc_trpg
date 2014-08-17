@@ -10,17 +10,17 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/smoothDivScroll.css" />
 
 <script type="text/javascript">
-<!--
-$(document).ready(function() {
-  $("#makeMeScrollable").smoothDivScroll({ 
-    mousewheelScrolling: false,
-    manualContinuousScrolling: false,
-    autoScrollingMode: "onStart",
-    autoScrollingStep: 1,
-    autoScrollingInterval: 100
-  });
-});
-//-->
+  <!--
+      $(document).ready(function() {
+      $("#makeMeScrollable").smoothDivScroll({ 
+      mousewheelScrolling: false,
+      manualContinuousScrolling: false,
+      autoScrollingMode: "onStart",
+      autoScrollingStep: 1,
+      autoScrollingInterval: 100
+      });
+      });
+      //-->
 </script>
 
 <div>
@@ -29,19 +29,19 @@ $(document).ready(function() {
     <div  style="width: 95%; top: 5px; position: relative" >
       <div class="panel panel-default">
         <div class="panel-body">
-            <a href="#" class="thumbnail">
-              <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile">
-            </a>
+          <a href="#" class="thumbnail">
+            <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile">
+          </a>
         </div>
         <div class="panel-footer"><span style="font-size: 20px"><strong>aginika</strong></span></div>
       </div>
     </div>
 
     <div  class="image-scroll" id="makeMeScrollable">
-        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
-        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
-        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
-        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+      <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+      <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+      <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+      <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
     </div>
 
     <div style="width: 95%; top: 5px; position: relative">
@@ -56,8 +56,26 @@ $(document).ready(function() {
 
   <!-- CENTER -->
   <div class="guest_middle">
-    <h1>here Game Guest</h1>
+    <div class="game-display">
+      <span  style="font-size: 20px; margin:20px"><strong>Game Display</strong></span>
+      <div class="canvas" id="canvas-size">
+      </div>
     </div>
+    <div class="ui-display">
+      <div>
+        <span  style="font-size: 20px; margin:20px"><strong>Game Interface</strong></span>
+      </div>
+
+      <div class="button-area">
+        b
+      </div>
+      <div class="chat-area">
+        b
+      </div>
+    </div>
+  </div>
+
+
   <div class="guest_right_bar">
   </div>
 </div>

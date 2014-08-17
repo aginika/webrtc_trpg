@@ -14,7 +14,7 @@
     height: 100%;
     background: #F7F7F7;
     position: fixed;
-    top: calc(70px - 20px);
+    top: 50px;
 }
 
 .master_middle{
@@ -22,7 +22,7 @@
     height: 100%;
     background: #00F700;
     position: fixed;
-    top: calc(70px - 20px);
+    top: 50px;
     left: 15%;
     padding: 0px;
     margin: 0px;
@@ -33,7 +33,7 @@
     height: 100%;
     background: #FFF7F7;
     position: fixed;
-    top: calc(70px - 20px);
+    top: 50px;
     left: 80%;
 }
 
@@ -42,15 +42,15 @@
     height: 100%;
     background: #F7F7F7;
     position: fixed;
-    top: calc(70px - 20px);
+    top: 50px;
 }
 
 .guest_middle{
     width: 65%;
     height: 100%;
-    background: #00F700;
+    background: #00F7EE;
     position: fixed;
-    top: calc(70px - 20px);
+    top: 50px;
     left: 15%;
     padding: 0px;
     margin: 0px;
@@ -59,9 +59,9 @@
 .guest_right_bar{
     width: 20%;
     height: 100%;
-    background: #FFF7F7;
+    background: #FFE7E7;
     position: fixed;
-    top: calc(70px - 20px);
+    top: 50px;
     left: 80%;
 }
 
@@ -85,4 +85,42 @@
   -o-user-select: none;
   user-select: none;
   border-radius: 30px;
+}
+
+.game-display{
+    width: 100%;
+    height: 65%;
+    background: #CCCCEE;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+}
+
+.ui-display{
+    width: 100%;
+    height: 35%;
+    background: #C2E288;
+    position: relative;
+}
+
+#canvas-size{
+    width: 80%;
+    height: 90%;
+    margin: 20px;
+    background: #FFFFFF;
+}
+
+.button-area{
+    width: 30%;
+    height: 100%;
+    Background: #008822;
+    float: left;
+}
+
+.chat-area{
+    width: 70%;
+    height: 100%;
+    Background: #002288;
+    position: relative;
+    left: 30%;
 }
