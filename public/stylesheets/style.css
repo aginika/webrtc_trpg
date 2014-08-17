@@ -8,3 +8,59 @@
     margin-top:-200px;
     margin-left:-350px;
 }
+
+.master_left_bar{
+    width: 20%;
+    height: 100%;
+    background: #F7F7F7;
+    position: fixed;
+    top: calc(70px - 20px);
+}
+
+.master_middle{
+    width: 60%;
+    height: 100%;
+    background: #00F700;
+    position: fixed;
+    top: calc(70px - 20px);
+    left: 20%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.master_right_bar{
+    width: 20%;
+    height: 100%;
+    background: #FFF7F7;
+    position: fixed;
+    top: calc(70px - 20px);
+    left: 80%;
+}
+
+.guest_left_bar{
+    width: 20%;
+    height: 100%;
+    background: #F7F7F7;
+    position: fixed;
+    top: calc(70px - 20px);
+}
+
+.guest_middle{
+    width: 60%;
+    height: 100%;
+    background: #00F700;
+    position: fixed;
+    top: calc(70px - 20px);
+    left: 20%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.guest_right_bar{
+    width: 20%;
+    height: 100%;
+    background: #FFF7F7;
+    position: fixed;
+    top: calc(70px - 20px);
+    left: 80%;
+}
