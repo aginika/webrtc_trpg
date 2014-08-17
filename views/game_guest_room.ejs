@@ -1,12 +1,65 @@
 <!DOCTYPE html>
 <% include header %>
+<% var holder_cdn = "https://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"%>
+
+
+
+<script src="javascripts/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+<script src="javascripts/jquery.mousewheel.min.js" type="text/javascript"></script>
+<script src="javascripts/jquery.smoothdivscroll-1.3-min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/smoothDivScroll.css" />
+
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+  $("#makeMeScrollable").smoothDivScroll({ 
+    mousewheelScrolling: false,
+    manualContinuousScrolling: false,
+    autoScrollingMode: "onStart",
+    autoScrollingStep: 1,
+    autoScrollingInterval: 100
+  });
+});
+//-->
+</script>
+
 <div>
-  <div class="guest_left_bar">
+  <!-- LEFT -->
+  <div class="guest_left_bar" align="center">
+    <div  style="width: 95%; top: 5px; position: relative" >
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <a href="#" class="thumbnail">
+              <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile">
+            </a>
+        </div>
+        <div class="panel-footer"><span style="font-size: 20px"><strong>aginika</strong></span></div>
+      </div>
+    </div>
+
+    <div  class="image-scroll" id="makeMeScrollable">
+        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+        <img data-src="<%= holder_cdn %>/100%x180" src="images/test.jpg" alt="Profile" height="90%">
+    </div>
+
+    <div style="width: 95%; top: 5px; position: relative">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          User Property
+        </div>
+        <div class="panel-body" id="user_property">Panel footer</div>
+      </div>
+    </div>
   </div>
+
+  <!-- CENTER -->
   <div class="guest_middle">
     <h1>here Game Guest</h1>
     </div>
   <div class="guest_right_bar">
   </div>
 </div>
+
 <% include footer %>
