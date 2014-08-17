@@ -1,14 +1,45 @@
 <!DOCTYPE html>
     <html>
       <head>
-        <% if (locals.title) { %>
-        <title><%= title %></title>
-        <% } %>
-        <link href="/node_modules/twitter-bootstrap-3.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/node_modules/twitter-bootstrap-3.0.0/dist/js/bootstrap.min.js" rel="javascript">
-       <style type="text/css">
-         body { padding-top: 70px; }
-       </style>
-     </head>
-   <% var USER = "aginika"%>
+        <title>WebRTC TRPG</title>
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <style type="text/css">
+          body { padding-top: 70px; }
+        </style>
+      </head>
+      <% var USER = "aginika"%>
      <body>
+       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+         <div class="container-fluid">
+           <div class="navbar-header">
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="/">TRPG</a>
+           </div>
+           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav">
+               <li class="active"><a href="#">Room@Frandle</a></li>
+             </ul>
+             <ul class="nav navbar-nav navbar-right">
+               <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">@aginika<span class="caret"></span></a>
+                 <ul class="dropdown-menu" role="menu">
+                   <li><a href="/">Settings</a></li>
+                   <li><a href="/">About TRPG</a></li>
+                   <li><a href="/">Reference</a></li>
+                   <li class="divider"></li>
+                   <li><a href="/">Logout</a></li>
+                 </ul>
+               </li>
+             </ul>
+           </div>
+         </div>
+       </nav>
+
