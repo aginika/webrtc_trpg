@@ -121,6 +121,6 @@
     width: 70%;
     height: 100%;
     Background: #002288;
-    position: relative;
     left: 30%;
+    float: left;
 }
