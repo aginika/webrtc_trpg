@@ -57,13 +57,30 @@
         b
       </div>
       <div class="chat-area">
-        <div>Here will be shown the chat result</div>
-        <textarea id="chat-text"></textarea>
-        <button class="button button-primary" onclick="SendMsg()">Send</button>
+        <div class="chat-log">
+          <table border="1" class="chat-log-table">
+            <tbody>
+              <tr class="chat-log-row">
+                <td class="chat-log-id">2</td>
+                <td class="chat-log-user-label">Test User</td>
+                <td class="chat-log-message">Hellow</td>
+              </tr>
+              <tr class="chat-log-row">
+                <td class="chat-log-id">1</td>
+                <td class="chat-log-user-label">Aginika</td>
+                <td class="chat-log-message">Hey What's up?</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="chat-send-row">
+            <div class="chat-user-label">You</div>
+            <input type="text" id="chat-text" class="chat-input"></input>
+            <button class="button button-primary chat-send-button" onclick="SendMsg()">Send</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 
   <!-- RIGHT -->
   <div class="guest_right_bar">
