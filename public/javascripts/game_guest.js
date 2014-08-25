@@ -9,6 +9,53 @@ $(document).ready(function() {
 });
 
 
+//----------------------------------------------------------
+// ---- socket ------
+//----------------------------------------------------------
+// create socket
+var socketReady = false;
+var port = 9001;
+var socket = io.connect('http://localhost:' + port + '/');
+  // socket: channel connected
+socket.on('connect', onOpened)
+    .on('message', onMessage);
+ 
+function onOpened(evt) {
+    console.log('socket opened.');
+    socketReady = true;
+}
+ 
+  // socket: accept connection request
+function onMessage(evt) {
+    if (evt.type === 'offer') {
+        console.log("Received offer, set offer, sending answer....")
+        onOffer(evt);      
+    } else if (evt.type === 'answer' && peerStarted) {
+        console.log('Received answer, settinng answer SDP');
+        onAnswer(evt);
+    } else if (evt.type === 'candidate' && peerStarted) {
+        console.log('Received ICE candidate...');
+        onCandidate(evt);
+    } else if (evt.type === 'user dissconnected' && peerStarted) {
+        console.log("disconnected");
+        stop();
+    }
+    console.log(evt);
+}
+
+function SendMsg() {
+    var msg = document.getElementById("chat-text").value;
+    console.log("send message : " + msg);
+    // メッセージを発射する
+    socket.emit('message', { value: msg });
+}
+
+
+//----------------------------------------------------------
+// ---- socket end ------
+//----------------------------------------------------------
+
+
 var main = function () {
     var scene = new THREE.Scene();
     

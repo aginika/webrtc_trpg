@@ -60,4 +60,20 @@ app.use(function(err, req, res, next) {
 });
 
 
+var port = 9001;
+var io = require('socket.io').listen(port);
+console.log((new Date()) + " Server is listening on port " + port);
+
+io.sockets.on('connection', function(socket) {
+    console.log("Hello");
+    socket.on('message', function(message) {
+        console.log("catch message : " + message.value);
+        socket.broadcast.emit('message', message);
+    });
+
+    socket.on('disconnect', function() {
+        socket.broadcast.emit('user disconnected');
+    });
+});
+
 module.exports = app;
