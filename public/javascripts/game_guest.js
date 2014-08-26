@@ -43,8 +43,17 @@ function onMessage(evt) {
     console.log(evt);
 }
 
+var row_num = 2;
 function SendMsg() {
     var msg = document.getElementById("chat-text").value;
+    var tbody = document.getElementById("chat-log-tbody");
+    row_num += 1;
+    $("<tr class='chat-log-row'><td class='chat-log-id'>"
+      +row_num+"</td><td class='chat-log-user-label'>You</td><td class='chat-log-message'>"+msg+"</td></tr>").hide().appendTo($("#chat-log-tbody")).show('slow');
+
+    var objDiv = document.getElementById("chat-log");
+    objDiv.scrollTop = objDiv.scrollHeight;
+
     console.log("send message : " + msg);
     // メッセージを発射する
     socket.emit('message', { value: msg });
