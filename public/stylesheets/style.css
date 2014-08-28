@@ -98,7 +98,7 @@
 
 .ui-display{
     width: 100%;
-    height: 35%;
+    height: calc(35% - 50px);
     background: #C2E288;
     position: relative;
 }
@@ -112,7 +112,7 @@
 
 .button-area{
     width: 30%;
-    height: 100%;
+    height: calc(100% - 22px); /* minus game interface bar */
     Background: #008822;
     float: left;
 }
@@ -127,7 +127,7 @@
 
 .chat-log{
     width: 100%;
-    height: 72%;
+    height: 87%;
     overflow-y: scroll;
     overflow-x: hide;
     background-color: red;
@@ -202,6 +202,25 @@
     margin: 0;
 }
 
+
+/* BUTTONS INTERFACE SETTINGS */
+.buttons-col {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding:20px;
+}
+
+
+.buttons-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
 /* SCROLL SETTINGS*/
 ::-webkit-scrollbar {
     width: 12px;
@@ -217,4 +236,3 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 /* SCROLL SETTINGS END*/
-

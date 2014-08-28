@@ -85,7 +85,7 @@ function SendMsg() {
 //----------------------------------------------------------
 // ---- chat table functions ------
 //----------------------------------------------------------
-var row_num = 2;
+var row_num = 0;
 
 function addChatLogRow(user_id, unique_id, user_color, msg){
     row_num += 1;
