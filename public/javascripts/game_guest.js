@@ -39,24 +39,41 @@ function onMessage(evt) {
     } else if (evt.type === 'user dissconnected' && peerStarted) {
         console.log("disconnected");
         stop();
+    }else{
+        console.log(evt);
+        var send_user = checkUser(evt.user, evt.user_unique_id);
+        addChatLogRow(send_user.user_id, send_user.unique_id, send_user.user_color, evt.msg);
     }
-    console.log(evt);
 }
 
-var row_num = 2;
+function checkUser(user, unique_id){
+    var tmp_user = user_manager.find_user(unique_id);
+    //This user is user we don't know
+    if (tmp_user == undefined){
+        console.log("New Regist");
+        //Regist
+        var new_user = new User(user, "", unique_id);
+        user_manager.add_user(new_user);
+        return new_user;
+    }
+    //We know him
+    else{
+        return tmp_user
+    }
+}
+
+var randnum = Math.floor( Math.random() * 100 );
+var user = new User("aginika"+randnum, "");
+var user_manager = new UserManager();
+
+
 function SendMsg() {
     var msg = document.getElementById("chat-text").value;
     var tbody = document.getElementById("chat-log-tbody");
-    row_num += 1;
-    $("<tr class='chat-log-row'><td class='chat-log-id'>"
-      +row_num+"</td><td class='chat-log-user-label'>You</td><td class='chat-log-message'>"+msg+"</td></tr>").hide().appendTo($("#chat-log-tbody")).show('slow');
-
-    var objDiv = document.getElementById("chat-log");
-    objDiv.scrollTop = objDiv.scrollHeight;
-
+    addChatLogRow(user.user_id, user.unique_id, user.user_color, msg);
     console.log("send message : " + msg);
     // メッセージを発射する
-    socket.emit('message', { value: msg });
+    socket.emit('message', { user: user.user_id, msg: msg, user_unique_id: user.unique_id});
 }
 
 
@@ -64,6 +81,32 @@ function SendMsg() {
 // ---- socket end ------
 //----------------------------------------------------------
 
+
+//----------------------------------------------------------
+// ---- chat table functions ------
+//----------------------------------------------------------
+var row_num = 2;
+
+function addChatLogRow(user_id, unique_id, user_color, msg){
+    row_num += 1;
+    $("<tr class='chat-log-row "+ unique_id +"'><td class='chat-log-id'>"
+      +row_num+"</td><td class='chat-log-user-label'>"+ user_id +"</td><td class='chat-log-message'>"+msg+"</td></tr>").hide().appendTo($("#chat-log-tbody")).show('slow');
+
+    //Scroll to Bottom
+    var objDiv = document.getElementById("chat-log");
+    objDiv.scrollTop = objDiv.scrollHeight;
+
+    //update background color for new row
+    rowColorUpdate(unique_id, user_color);
+}
+
+function rowColorUpdate(user_unique_id, user_color){
+    $("."+user_unique_id).css("background-color",user_color);
+}
+
+//----------------------------------------------------------
+// ---- chat table end ------
+//----------------------------------------------------------
 
 var main = function () {
     var scene = new THREE.Scene();

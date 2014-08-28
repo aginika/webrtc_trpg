@@ -67,7 +67,7 @@ console.log((new Date()) + " Server is listening on port " + port);
 io.sockets.on('connection', function(socket) {
     console.log("Hello");
     socket.on('message', function(message) {
-        console.log("catch message : " + message.value);
+        console.log("catch message : from (" + message.user + ") msg: " + message.msg);
         socket.broadcast.emit('message', message);
     });
 
