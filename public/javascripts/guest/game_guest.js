@@ -107,12 +107,78 @@ function rowColorUpdate(user_unique_id, user_color){
 //----------------------------------------------------------
 // ---- chat table end ------
 //----------------------------------------------------------
+var user_pos_x = 75;
+var user_pos_y = 75;
+
+
 
 var main = function () {
+    //Setup 2dCanvas
+    var height = 1 * document.getElementById("3d_view").offsetHeight;
+    var width  = height *3.0/2.0;
+    var renderer_2d = document.createElement("canvas");
+    renderer_2d.width = width;
+    renderer_2d.height = height;
+    renderer_2d.style.float="left";
+    //obj.setAttribute("style","color:#000000;font-size:12px;");
+    var canvas_parent = document.getElementById('2d_display');
+    canvas_parent.appendChild(renderer_2d);
+    var ctx = renderer_2d.getContext('2d');
+    var img = new Image();
+    img.src = "/images/map_sample.png";
+    img.onload = function() {
+        ctx.drawImage(img, 5, 5, width - 5, height - 5);
+    };
+
+    var canvas_controller_parent = document.getElementById('2d_map_con');
+    var joystick = new VirtualJoystick({
+        container: canvas_controller_parent,
+        mouseSupport: true,
+        stationaryBase: true,
+        limitStickTravel: true,
+        stickRadius: 50,
+        baseX: 200,
+        baseY: 200
+    });
+    joystick.addEventListener('touchStart', function(){
+        console.log('down')
+    })
+    joystick.addEventListener('touchEnd', function(){
+        console.log('up')
+    })
+
+    setInterval(function(){
+        console.log("d_x " + joystick.deltaX()+ " d_y : "+ joystick.deltaY());
+        if(joystick._pressed){
+            var speed_x = Math.min(joystick.deltaX() * 0.3, 4);
+            var speed_y = Math.min(joystick.deltaY() * 0.3, 4);
+            user_pos_x += speed_x;
+            user_pos_y += speed_y;
+            if(user_pos_x < 0 ) user_pos_x = 0;
+            if(user_pos_y < 0 ) user_pos_y = 0;
+            if(user_pos_x > 400 ) user_pos_x = 400;
+            if(user_pos_y > 400 ) user_pos_y = 400;
+        }
+    }, 1/10 * 1000);
+
+    ( function render2dMapLoop () {
+        // requestAnimationFrame( renderLoop );
+        ctx.clearRect (0, 0, width, height);
+        ctx.drawImage(img, 5, 5, width - 5, height - 5);
+        ctx.beginPath();
+        ctx.arc(user_pos_x, user_pos_y, 10, 0, Math.PI*2, true); 
+        ctx.closePath();
+        ctx.fill();
+        window.setTimeout(render2dMapLoop, 1000 / 60);
+    } )();
+
+
+    //SetUp 3dCanvas
+
     var scene = new THREE.Scene();
     
-    var height = 1 * document.getElementsByClassName("game-display")[0].offsetHeight- 20;
-    var width  = height *3.0/2.0;
+    height = 1 * document.getElementById("3d_view").offsetHeight;
+    width  = height *3.0/2.0;
     var fov    = 60;
     var aspect = width / height;
     var near   = 1;
@@ -122,7 +188,7 @@ var main = function () {
 
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize( width, height );
-    document.getElementsByClassName("game-display")[0].appendChild( renderer.domElement );
+    document.getElementById("3d_view").appendChild( renderer.domElement );
 
     var directionalLight = new THREE.DirectionalLight( 0xffffff );
     directionalLight.position.set( 0, 0.7, 0.7 );
