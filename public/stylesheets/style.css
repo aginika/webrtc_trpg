@@ -91,19 +91,19 @@
     width: 100%;
     height: 65%;
     background: #CCCCEE;
-    padding-top: 7px;
+    padding: 0px;
 }
 
 .game-display-main{
     width: 65%;
     height: 100%;
-    padding: 0;
+    padding-top: 7px;
     margin: 0;
     float: left;
 }
 
 .game-display-sub{
-    width: 34%;
+    width: 35%;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -173,7 +173,8 @@
     height:24px;
     margin: 0;
     padding: 0;
-    letter-spacing:-0.4em;
+    letter-spacing:-0.3em;
+    top: -1px;
 }
 
 .chat-user-label{

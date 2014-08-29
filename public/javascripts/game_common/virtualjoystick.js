@@ -224,25 +224,17 @@ VirtualJoystick.prototype._onMouseUp	= function(event)
 VirtualJoystick.prototype._onMouseDown	= function(event)
 {
 	event.preventDefault();
-	// var x	= event.clientX;
-	// var y	= event.clientY;
     var rect = this._baseEl.getBoundingClientRect();
-	// var x	= event.screenX - rect.top;
-	// var y	= event.screenY - rect.left;
     this.global_x = event.screenX;
     this.global_y = event.screenY;
 	var x	= this._baseX ;
 	var y	= this._baseY ;
 
-
-    console.log("x : " + (event.offsetX) + " y: " + (event.offsetY));
 	return this._onDown(x, y);
 }
 
 VirtualJoystick.prototype._onMouseMove	= function(event)
 {
-	// var x	= event.clientX;
-	// var y	= event.clientY;
     if(!this._pressed){
         this.global_x = event.screenX;
         this.global_y = event.screenY;
@@ -254,7 +246,6 @@ VirtualJoystick.prototype._onMouseMove	= function(event)
     var dif_y = event.screenY - this.global_y;
 	var x	= this._baseX + dif_x;
 	var y	= this._baseY + dif_y;
-    console.log("x - client : " + event.offsetX + " y - client: " + event.offsetY);
 	return this._onMove(x, y);
 }
 

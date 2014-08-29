@@ -7,6 +7,24 @@ $(document).ready(function() {
         autoScrollingInterval: 100
     });
 });
+//--------------------------
+// -- User ---
+//---------------------------
+var randnum = Math.floor( Math.random() * 100 );
+var user = new User("aginika"+randnum, "");
+var user_manager = new UserManager();
+
+
+//-------------------------------------------
+// --- Map    ------
+//-------------------------------------------
+var maps = {};
+var d2_map = new Map("room_map", true);
+d2_map.set_player_initpos(100, 100);
+//add my user
+d2_map.add_new_map_player("aginika", user.unique_id);
+d2_map.set_min_max(0, 0, 690,480);
+maps[d2_map.map_name] = d2_map;
 
 
 //----------------------------------------------------------
@@ -41,8 +59,37 @@ function onMessage(evt) {
         stop();
     }else{
         console.log(evt);
-        var send_user = checkUser(evt.user, evt.user_unique_id);
-        addChatLogRow(send_user.user_id, send_user.unique_id, send_user.user_color, evt.msg);
+        //Chat
+        if(evt.mst_type == "chat"){
+            var send_user = checkUser(evt.user, evt.user_unique_id);
+            addChatLogRow(send_user.user_id,
+                          send_user.unique_id,
+                          send_user.user_color,
+                          evt.msg);
+        }
+        //Map Maniplutaion
+        else if(evt.msg_type == "map_manip"){
+            if(evt.manip_info.map_manip_type == "move_user"){
+                var target_map = maps[evt.manip_info.map_name];
+                if(target_map){
+                    var target_player = target_map.get_player(evt.manip_info.unique_id);
+                    if(target_player)
+                        target_map.update_player_pos(
+                            evt.manip_info.unique_id,
+                            evt.manip_info.x,
+                            evt.manip_info.y);
+                    else
+                        target_map.add_exist_map_player(
+                            evt.manip_info.character_name,
+                            evt.manip_info.unique_id,
+                            evt.manip_info.x,
+                            evt.manip_info.y);
+                }else{
+                    console.log("No Map found");
+                }
+            }
+        }
+        //Map Manipluration end
     }
 }
 
@@ -62,10 +109,6 @@ function checkUser(user, unique_id){
     }
 }
 
-var randnum = Math.floor( Math.random() * 100 );
-var user = new User("aginika"+randnum, "");
-var user_manager = new UserManager();
-
 
 function SendMsg() {
     var msg = document.getElementById("chat-text").value;
@@ -73,7 +116,7 @@ function SendMsg() {
     addChatLogRow(user.user_id, user.unique_id, user.user_color, msg);
     console.log("send message : " + msg);
     // メッセージを発射する
-    socket.emit('message', { user: user.user_id, msg: msg, user_unique_id: user.unique_id});
+    socket.emit('message', { user: user.user_id, msg: msg, user_unique_id: user.unique_id, msg_type:"chat"});
 }
 
 
@@ -107,13 +150,9 @@ function rowColorUpdate(user_unique_id, user_color){
 //----------------------------------------------------------
 // ---- chat table end ------
 //----------------------------------------------------------
-var user_pos_x = 75;
-var user_pos_y = 75;
-
-
-
 var main = function () {
     //Setup 2dCanvas
+    var my_user = user;
     var height = 1 * document.getElementById("3d_view").offsetHeight;
     var width  = height *3.0/2.0;
     var renderer_2d = document.createElement("canvas");
@@ -137,8 +176,8 @@ var main = function () {
         stationaryBase: true,
         limitStickTravel: true,
         stickRadius: 50,
-        baseX: 200,
-        baseY: 200
+        baseX: 100,
+        baseY: 100
     });
     joystick.addEventListener('touchStart', function(){
         console.log('down')
@@ -147,17 +186,40 @@ var main = function () {
         console.log('up')
     })
 
+    var counter = 0;
     setInterval(function(){
-        console.log("d_x " + joystick.deltaX()+ " d_y : "+ joystick.deltaY());
         if(joystick._pressed){
             var speed_x = Math.min(joystick.deltaX() * 0.3, 4);
             var speed_y = Math.min(joystick.deltaY() * 0.3, 4);
-            user_pos_x += speed_x;
-            user_pos_y += speed_y;
-            if(user_pos_x < 0 ) user_pos_x = 0;
-            if(user_pos_y < 0 ) user_pos_y = 0;
-            if(user_pos_x > 400 ) user_pos_x = 400;
-            if(user_pos_y > 400 ) user_pos_y = 400;
+            var user = d2_map.get_player(my_user.unique_id);
+            var user_x = user.map_x;
+            var user_y = user.map_y;
+            user_x += speed_x;
+            user_y += speed_y;
+            if(user_x < d2_map.min_map_x ) user_x = 0;
+            if(user_y < d2_map.min_map_y ) user_y = 0;
+            if(user_x > d2_map.max_map_x ) user_x = 400;
+            if(user_y > d2_map.max_map_x ) user_y = 400;
+            d2_map.update_player_pos(my_user.unique_id, user_x, user_y);
+            if(counter%10 == 0){
+                //send pos
+                var msg =
+                    {msg_type:"map_manip",
+                     manip_info:
+                     {
+                         map_manip_type:"move_user",
+                         map_name:"room_map",
+                         unique_id: my_user.unique_id,
+                         x: user_x,
+                         y: user_y,
+                         character_name: my_user.character_name
+                     }
+                    };
+                socket.emit('message', msg);
+            }
+            counter++;
+        }else{
+            counter = 0;
         }
     }, 1/10 * 1000);
 
@@ -165,11 +227,16 @@ var main = function () {
         // requestAnimationFrame( renderLoop );
         ctx.clearRect (0, 0, width, height);
         ctx.drawImage(img, 5, 5, width - 5, height - 5);
-        ctx.beginPath();
-        ctx.arc(user_pos_x, user_pos_y, 10, 0, Math.PI*2, true); 
-        ctx.closePath();
-        ctx.fill();
-        window.setTimeout(render2dMapLoop, 1000 / 60);
+        var target_users = d2_map.map_players;
+        for (var id in target_users){
+            var target_user = target_users[id];
+            ctx.beginPath();
+            ctx.fillStyle = target_user.color;
+            ctx.arc( target_user.map_x, target_user.map_y, 10, 0, Math.PI*2, true);
+            ctx.closePath();
+            ctx.fill();
+        }
+        window.setTimeout(render2dMapLoop, 1000 / 10);
     } )();
 
 
