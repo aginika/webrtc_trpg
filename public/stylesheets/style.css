@@ -256,6 +256,40 @@
     justify-content: space-between;
 }
 
+/* overlay */
+#overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    display: none;
+    text-align: center;
+    z-index: 100;
+    background: rgba(0,0,0,0.7);
+}
+
+.character-input-button{
+    width: 100px;
+    display:block;
+    /* text-align: center; */
+}
+
+#character-create-panel{
+    margin: 200px auto;
+    width: 600px;
+    height: 400px;
+    opacity: 1;
+}
+
+#character-input-zone{
+    height: 82%;
+}
+
+#character-input-footer{
+    height: 18%;
+}
 
 /* SCROLL SETTINGS*/
 ::-webkit-scrollbar {
