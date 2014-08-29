@@ -22,7 +22,7 @@ var maps = {};
 var d2_map = new Map("room_map", true);
 d2_map.set_player_initpos(100, 100);
 //add my user
-d2_map.add_new_map_player("aginika", user.unique_id);
+d2_map.add_new_map_player("フラン"+randnum, user.unique_id);
 d2_map.set_min_max(0, 0, 690,480);
 maps[d2_map.map_name] = d2_map;
 
@@ -212,7 +212,7 @@ var main = function () {
                          unique_id: my_user.unique_id,
                          x: user_x,
                          y: user_y,
-                         character_name: my_user.character_name
+                         character_name: user.character_name
                      }
                     };
                 socket.emit('message', msg);
@@ -235,6 +235,11 @@ var main = function () {
             ctx.arc( target_user.map_x, target_user.map_y, 10, 0, Math.PI*2, true);
             ctx.closePath();
             ctx.fill();
+            ctx.fillStyle = "black";
+            ctx.font = "20px 'ＭＳ ゴシック'";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "top";
+            ctx.fillText(target_user.character_name, target_user.map_x, target_user.map_y,200);
         }
         window.setTimeout(render2dMapLoop, 1000 / 10);
     } )();
