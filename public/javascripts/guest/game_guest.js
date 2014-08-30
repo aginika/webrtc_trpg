@@ -60,8 +60,9 @@ function onMessage(evt) {
     }else{
         console.log(evt);
         //Chat
-        if(evt.mst_type == "chat"){
+        if(evt.msg_type == "chat"){
             var send_user = checkUser(evt.user, evt.user_unique_id);
+            console.log(send_user);
             addChatLogRow(send_user.user_id,
                           send_user.unique_id,
                           send_user.user_color,
